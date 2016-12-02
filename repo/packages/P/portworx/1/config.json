@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "properties": {
+        "service":{
+            "type":"object",
+            "description": "DC/OS service configuration properties",
+            "properties":{
+                "name" : {
+                    "description":"Name of this service instance.",
+                    "type":"string",
+                    "default": "Portworx"
+                }
+            }
+        },
+        "config":{
+            "type": "object",
+            "description":  "CPU shares to allocate to each service instance.",
+            "properties": {
+                "kvdb": {
+                    "description": "Key Value database to use for PX to store configuration parameters.",
+                    "type": "string",
+                    "default": "etcd://etcd.mycompany.com:4001"
+                },
+                "clusterid": {
+                    "description":  "PX Cluster ID",
+                    "type": "string",
+                    "default": "my-cluster"
+                },
+                "storage": {
+                    "description":  "Local storage devices to use.  Specify devices using the -s option.  Multiple devices can be specified using multiple -s options.  To use all available devices, just use -a",
+                    "type": "string",
+                    "default": "-s /dev/sdb"
+                }
+            },
+            "required": [
+                "kvdb",
+                "clusterid",
+				"storage"
+            ]
+        }
+    }
+}
