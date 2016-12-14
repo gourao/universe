@@ -12,9 +12,9 @@
                 }
             }
         },
-        "config":{
-            "type": "object",
-            "description":  "CPU shares to allocate to each service instance.",
+        "portworx":{
+			"additionalProperties": false,
+            "description":  "PX configuration properties",
             "properties": {
                 "kvdb": {
                     "description": "Key Value database to use for PX to store configuration parameters.",

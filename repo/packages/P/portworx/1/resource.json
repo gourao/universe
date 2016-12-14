@@ -7,7 +7,7 @@
   "assets": {
     "container": {
       "docker": {
-        "c4878d1b67d9": "portworx/px-dev:latest"
+        "portworx-docker": "portworx/px-dev:latest"
       }
     }
   }

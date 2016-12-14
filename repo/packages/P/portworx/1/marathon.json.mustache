@@ -1,5 +1,68 @@
 {
   "id": "{{service.name}}",
+  "cpus": {{portworx.cpus}},                                                              │
+  "mem": {{portworx.mem}},                                                                │
   "clusterid": {{portworx.clusterid}},
-  "storage": {{portworx.storage}}
+  "storage": {{portworx.storage}},
+  "env": {
+        "PARAM_KVDB": "{{portworx.kvdb}",
+        "PWX_CLUSTERNAME": "{{portworx.clusterid}}",
+        "PARAM_DISKS": "{{portworx.storage}}"
+  },
+  "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "{{resource.assets.container.docker.portworx-docker}}",
+            "forcePullImage": true,
+            "network": "HOST"
+        },
+        "volumes": [
+        {
+            "containerPath": "/run/docker/plugins",
+            "hostPath": "/run/docker/plugins",
+            "mode": "RW"
+        },
+        {
+            "containerPath": "/var/lib/osd:shared",
+            "hostPath": "/var/lib/osd",
+            "mode": "RW"
+        },
+        {
+            "containerPath": "/dev",
+            "hostPath": "/dev",
+            "mode": "RW"
+        },
+        {
+            "containerPath": "/export_bin:shared",
+            "hostPath": "/opt/pwx/bin",
+            "mode": "RW"
+        },
+        {
+            "containerPath": "/var/run/docker.sock",
+            "hostPath": "/var/run/docker.sock",
+            "mode": "RW"
+        },
+        {
+            "containerPath": "/var/cores",
+            "hostPath": "/var/cores",
+            "mode": "RW"
+        },
+        {
+            "containerPath": "/usr/src",
+            "hostPath": "/usr/src",
+            "mode": "RW"
+        }
+        ]
+    },
+    "healthChecks": [
+    {
+        "protocol": "TCP",
+        "portIndex": 0,
+        "gracePeriodSeconds": 300,
+        "intervalSeconds": 60,
+        "timeoutSeconds": 20,
+        "maxConsecutiveFailures": 3,
+        "ignoreHttp1xx": false
+    }
+    ]
 }
